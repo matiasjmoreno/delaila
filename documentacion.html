@@ -1,0 +1,793 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Delilah Resto API</title>
+    <link href="estilos.css" rel="stylesheet" type="text/css">
+ </head>
+  <body>
+  <h1>Delilah Resto API</h1>
+    <div class="app-desc">API de Delilah Resto. A continuación se explican sus funcionalidades.</div>
+    <div class="app-desc">Contacto: <a href="elmatiasmoreno@hotmail.com">elmatiasmoreno@hotmail.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    
+  <h2>Access</h2>
+
+  <h2><a name="Methods">Methods</a></h2>
+  
+  <h1><a name="Administrador">Administrador</a></h1>
+  <div class="method"><a name="pedidosGet"></a>
+    <div class="method-path">
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /pedidos</code></pre></div>
+    <div class="method-summary">Accede a todos los pedidos (<span class="nickname">pedidosGet</span>)</div>
+    <div class="method-notes">Trae una lista con todos los pedidos registrados en la base de datos. Por cada pedido, devuelve tantos registros como productos diferentes posea.</div>
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#PedidoAdmin">PedidoAdmin</a>]
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "estado" : "En Preparación",
+  "total" : 440,
+  "usuario_id" : 4,
+  "hora" : "2020-05-20T00:48:08.000Z",
+  "direccion" : "Av Colon 4800",
+  "nombre_producto" : "Hamburguesa",
+  "id" : 1,
+  "cantidad" : 2,
+  "metodo_pago" : "Débito"
+}, {
+  "estado" : "En Preparación",
+  "total" : 440,
+  "usuario_id" : 4,
+  "hora" : "2020-05-20T00:48:08.000Z",
+  "direccion" : "Av Colon 4800",
+  "nombre_producto" : "Hamburguesa",
+  "id" : 1,
+  "cantidad" : 2,
+  "metodo_pago" : "Débito"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    lista de pedidos
+        
+    <h4 class="field-label">401</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div> 
+  
+  <hr/>
+
+  <div class="method"><a name="pedidosIdPatch"></a>
+    <div class="method-path">
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /pedidos/{id}</code></pre></div>
+    <div class="method-summary">Edita el estado de un pedido. (<span class="nickname">pedidosIdPatch</span>)</div>
+    <div class="method-notes">Dado el id de un pedido y un nuevo estado, se actualiza el registro en la base de datos.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID del pedido a actualizar </div></div> 
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#ActualizarPedido">ActualizarPedido</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Nuevo estado del pedido </div>
+                </div>  
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    El estado del pedido fue modificado
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div> 
+
+  <hr/>
+
+  <div class="method"><a name="pedidosIdDelete"></a>
+    <div class="method-path">
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /pedidos/{id}</code></pre></div>
+    <div class="method-summary">Elimina un pedido (<span class="nickname">pedidoIdDelete</span>)</div>
+    <div class="method-notes">Dado el id de un pedido, lo elimina de la base de datos.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID del pedido a eliminar </div></div>  
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Se ha eliminado el pedido
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div>
+
+  <hr/>
+
+  <div class="method"><a name="productosGet"></a>
+    <div class="method-path">
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /productos</code></pre></div>
+    <div class="method-summary">Accede a los productos disponibles (<span class="nickname">productosGet</span>)</div>
+    <div class="method-notes">Trae una lista con todos los productos disponibles</div>
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Producto">Producto</a>]
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "precio" : 220,
+  "nombre" : "Hamburguesa"
+}, {
+  "precio" : 220,
+  "nombre" : "Hamburguesa"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    lista de productos
+    <h4 class="field-label">401</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Token inválido
+        <a href="#"></a>
+  </div> 
+  
+  <hr/>
+  
+  <div class="method"><a name="productosIdDelete"></a>
+    <div class="method-path">
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /productos/{id}</code></pre></div>
+    <div class="method-summary">Elimina un producto (<span class="nickname">productosIdDelete</span>)</div>
+    <div class="method-notes">Dado el id de un producto, lo elimina de la base de datos.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID del producto a eliminar </div></div>  
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div> 
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Se ha eliminado el producto
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div> 
+
+  <hr/>
+
+  <div class="method"><a name="productosIdPatch"></a>
+    <div class="method-path">
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /productos/{id}</code></pre></div>
+    <div class="method-summary">Edita un producto existente. (<span class="nickname">productosIdPatch</span>)</div>
+    <div class="method-notes">Dado el id de un producto, un nuevo nombre y/o precio, se actualiza el registro en la base de datos.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID del producto a editar </div></div>  
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#ActualizarProducto">ActualizarProducto</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Nuevo nombre y/o nuevo precio del producto </div>
+                </div>  
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_1">inline_response_200_1</a>
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#inline_response_200_1">inline_response_200_1</a>
+    <h4 class="field-label">400</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div> 
+
+  <hr/>
+
+  <div class="method"><a name="productosPost"></a>
+    <div class="method-path">
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /productos</code></pre></div>
+    <div class="method-summary">Crea un nuevo producto (<span class="nickname">productosPost</span>)</div>
+    <div class="method-notes">Dado un nombre de producto y un precio, lo agrega a la lista de productos disponibles.</div>
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Producto">Producto</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Nombre y precio del producto a agregar </div>
+                </div>  
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Se ha agregado el nuevo producto a la base de datos
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div> 
+
+  <hr/>
+
+  <div class="method"><a name="usuariosGet"></a>
+    <div class="method-path">
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /usuarios</code></pre></div>
+    <div class="method-summary">Accedé a todos los usuarios registrados (<span class="nickname">usuariosGet</span>)</div>
+    <div class="method-notes">Trae una lista con todos los usuarios registrados</div>
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Usuario">Usuario</a>]
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "mail" : "gracielaC@hotmail.com",
+  "apellido" : "Cristaldo",
+  "admin" : 0,
+  "id" : 1,
+  "telefono" : "351234567",
+  "nombre_usuario" : "graciela40",
+  "nombre" : "Graciela"
+}, {
+  "mail" : "gracielaC@hotmail.com",
+  "apellido" : "Cristaldo",
+  "admin" : 0,
+  "id" : 1,
+  "telefono" : "351234567",
+  "nombre_usuario" : "graciela40",
+  "nombre" : "Graciela"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    lista de usuarios registrados
+        
+    <h4 class="field-label">400</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Acceso denegado. Sólo administradores
+        <a href="#"></a>
+  </div> 
+
+  <hr/>
+
+  <h1><a name="EndpointsLibres">EndpointsLibres</a></h1>
+  <div class="method"><a name="loginPost"></a>
+    <div class="method-path">
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /login</code></pre></div>
+    <div class="method-summary">Autentica usuarios (<span class="nickname">loginPost</span>)</div>
+    <div class="method-notes">Dado un nombre de usuario y una contraseña, corrobora los datos con la base de datos. De existir el usuario y estar bien los datos, devuelve el token necesario para futuras autenticaciones.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#UsuarioLogin">UsuarioLogin</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Nombre de usuario y contraseña </div>
+                </div>  
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200">inline_response_200</a>
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "token" : "IUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX3Rva2VuIjp7Im"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Token para futuras autenticaciones
+        <a href="#inline_response_200">inline_response_200</a>
+    <h4 class="field-label">400</h4>
+    Error
+        <a href="#inline_response_400_1">inline_response_400_1</a>
+  </div> 
+  
+  <hr/>
+
+  <div class="method"><a name="usuariosPost"></a>
+    <div class="method-path">
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /usuarios</code></pre></div>
+    <div class="method-summary">Crea un nuevo usuario (<span class="nickname">usuariosPost</span>)</div>
+    <div class="method-notes">Si se proporcionan los datos requeridos y el nombre de usuario proporcionado está disponible, se creará un nuevo usuario en el sistema.</div>
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Post-Usuario">Post-Usuario</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Datos del usuario a crear </div>
+                </div>  
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    El usuario ha sido creado con éxito
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Error
+        <a href="#inline_response_400">inline_response_400</a>
+  </div> 
+
+  <hr/>
+
+  <h1><a name="UsuariosRegistrados">UsuariosRegistrados</a></h1>
+  <div class="method"><a name="pedidosPost"></a>
+    <div class="method-path">
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /pedidos</code></pre></div>
+    <div class="method-summary">Crea un nuevo pedido (<span class="nickname">pedidosPost</span>)</div>
+    <div class="method-notes">Dados los datos requeridos, realiza un nuevo pedido.</div>
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#PedidoUsuario">PedidoUsuario</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Los productos se informan en forma de lista con los ID de los productos pedidos por el usuario, acompañado de un array de las cantidades de los mismos. Las posiciones deben corresponderse. Es necesario además aclarar la dirección de entrega y el método de pago. </div>
+                </div>  
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    El pedido fue realizado con éxito
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Token inválido
+        <a href="#"></a>
+  </div> 
+
+  <hr/>
+
+  <div class="method"><a name="productosGet"></a>
+    <div class="method-path">
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /productos</code></pre></div>
+    <div class="method-summary">Accede a los productos disponibles (<span class="nickname">productosGet</span>)</div>
+    <div class="method-notes">Trae una lista con todos los productos disponibles</div>
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Producto">Producto</a>]
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "precio" : 220,
+  "nombre" : "Hamburguesa"
+}, {
+  "precio" : 220,
+  "nombre" : "Hamburguesa"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    lista de productos
+        
+    <h4 class="field-label">401</h4>
+    Primero debes iniciar sesión
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Token inválido
+        <a href="#"></a>
+  </div> 
+  
+  <hr/>
+
+  <h2><a name="Models">Models</a></h2>
+  
+  <div class="model">
+    <h3><a name="ActualizarPedido"><code>ActualizarPedido</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">nuevo_estado (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Cancelado</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="ActualizarProducto"><code>ActualizarProducto</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">nuevo_nombre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Hamburguesa Clásica</span></div>
+<div class="param">nuevo_precio (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 220</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="CambiosOK"><code>CambiosOK</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="FaltanDatos"><code>FaltanDatos</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="NoAutentica"><code>NoAutentica</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="NoContrasena"><code>NoContrasena</code></a></h3>
+    
+    <div class="field-items">
+          </div> 
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="NoUsuario"><code>NoUsuario</code></a></h3>
+    
+    <div class="field-items">
+          </div> 
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="NuevoNombre"><code>NuevoNombre</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="NuevoPrecio"><code>NuevoPrecio</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="PedidoAdmin"><code>PedidoAdmin</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">estado (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: En Preparación</span></div>
+<div class="param">usuario_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 4</span></div>
+<div class="param">direccion (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Av Colon 4800</span></div>
+<div class="param">total (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 440</span></div>
+<div class="param">metodo_pago (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Débito</span></div>
+<div class="param">hora (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2020-05-20T00:48:08.000Z</span></div>
+<div class="param">nombre_producto (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Hamburguesa</span></div>
+<div class="param">cantidad (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="PedidoUsuario"><code>PedidoUsuario</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">productos (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: [1,3,5]</span></div>
+<div class="param">cantidades (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: [1,1,2]</span></div>
+<div class="param">dirección (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Avenida Colon 4800</span></div>
+<div class="param">metodo_pago (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Efectivo</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="Post-Usuario"><code>Post-Usuario</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">nombreusuario (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: graciela40</span></div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: contraseña123</span></div>
+<div class="param">nombre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Graciela</span></div>
+<div class="param">apellido (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Cristaldo</span></div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: gracielaC@hotmail.com</span></div>
+<div class="param">telefono (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 351234567</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="Producto"><code>Producto</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">nombre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Hamburguesa</span></div>
+<div class="param">precio (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 220</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="Usuario"><code>Usuario</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">nombre_usuario (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: graciela40</span></div>
+<div class="param">nombre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Graciela</span></div>
+<div class="param">apellido (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Cristaldo</span></div>
+<div class="param">mail (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: gracielaC@hotmail.com</span></div>
+<div class="param">telefono (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 3517687369</span></div>
+<div class="param">admin (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 0</span></div>
+    </div> 
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="UsuarioLogin"><code>UsuarioLogin</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">nombreusuario (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: graciela40</span></div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: contraseña123</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="UsuarioNoDisp"><code>UsuarioNoDisp</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code></a></h3>
+    
+    <div class="field-items">
+      <div class="param">token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: IUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX3Rva2VuIjp7Im</span></div>
+    </div>  
+  </div>
+
+  <hr class="lineafina">
+  
+  <div class="model">
+    <h3><a name="inline_response_200_1"><code>inline_response_200_1</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="inline_response_400"><code>inline_response_400</code></a></h3>
+    
+    <div class="field-items">
+          </div>  
+  </div>
+
+  <hr class="lineafina">
+
+  <div class="model">
+    <h3><a name="inline_response_400_1"><code>inline_response_400_1</code></a></h3>
+    
+    <div class="field-items">
+          </div> 
+  </div>
+
+  <div class="license-info">Apache 2.0</div>
+  <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  </body>
+</html>
